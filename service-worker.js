@@ -1,14 +1,10 @@
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open('nordic-trip-v2').then(cache => cache.addAll([
-      '/',
-      '/index.html',
-      '/manifest.json'
-    ]))
-  );
+const CACHE_NAME = "nordic-trip-cache-v2";
+const urlsToCache = ["index.html", "style.css", "script.js", "manifest.json", "itinerary.json"];
+
+self.addEventListener("install", e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
 });
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => response || fetch(e.request))
-  );
+
+self.addEventListener("fetch", e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
