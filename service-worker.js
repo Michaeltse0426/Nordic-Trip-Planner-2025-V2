@@ -1,1 +1,2 @@
-// Service worker placeholder
+// Basic service worker placeholder
+self.addEventListener("install", e => {console.log("SW Installed");});
